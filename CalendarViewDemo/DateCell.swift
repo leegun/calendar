@@ -1,5 +1,5 @@
 //
-//  CalendarCell.swift
+//  DateCell.swift
 //  CalendarViewDemo
 //
 //  Created by g.lee on 2017/02/06.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarCell: UICollectionViewCell {
+class DateCell: UICollectionViewCell {
 
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var activeView: RounedView!
@@ -42,6 +42,21 @@ class CalendarCell: UICollectionViewCell {
         } else {
             dayLabel.backgroundColor = .clear
             dayLabel.textColor = .darkGray
+        }
+    }
+
+    func configure(dateCollection: DateCollection, indexPath: IndexPath) {
+
+        let dateOfIndexPath = dateCollection.dates[indexPath.row]
+        let selected = dateCollection.selectedDate == dateOfIndexPath
+        let selectedDateIsToday = dateCollection.selectedDate == dateCollection.today
+        let isToday = dateOfIndexPath == dateCollection.today
+        dayLabel.text = dateCollection.conversionDateFormat(date: dateOfIndexPath)
+        
+        isToday ? todayLabel(selected: selectedDateIsToday) : defaultLabel(selected: selected)
+        
+        if !dateCollection.isCurrentMonth(date: dateOfIndexPath) && !selected {
+            dayLabel.textColor = .lightGray
         }
     }
 }
