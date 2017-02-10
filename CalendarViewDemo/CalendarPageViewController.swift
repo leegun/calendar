@@ -11,7 +11,6 @@ import UIKit
 
 class CalendarPageViewController: UIPageViewController {
 
-    var dateCollection: DateCollection!
     var didChangeHeight: ((CGFloat) -> Void)?
     var didChangeMonth: ((String) -> Void)?
 
@@ -26,12 +25,8 @@ class CalendarPageViewController: UIPageViewController {
     }
 
     func setViewController(dateCollection: DateCollection) {
-        self.dateCollection = dateCollection
         let vc = DateCollectionViewController.instantiate()
-        vc.dateCollection = self.dateCollection
-        vc.didChangeSelectedDate = { [weak self] selectedDate in
-            self?.dateCollection.selectedDate = selectedDate
-        }
+        vc.dateCollection = dateCollection
         vc.didChangeMonth = { [weak self] title in
             self?.didChangeMonth?(title)
         }
@@ -40,7 +35,9 @@ class CalendarPageViewController: UIPageViewController {
     }
 
     func changeDateCollection() {
-        setViewController(dateCollection: self.dateCollection.changeMode)
+        if let currentVC = self.viewControllers?[0] as? DateCollectionViewController {
+            setViewController(dateCollection: currentVC.dateCollection.changeMode)
+        }
     }
 }
 
@@ -53,7 +50,6 @@ extension CalendarPageViewController: UIPageViewControllerDelegate {
         guard completed else { return }
 
         if let currentVC = pageViewController.viewControllers?[0] as? DateCollectionViewController {
-            self.dateCollection = currentVC.dateCollection
             self.didChangeMonth?(currentVC.dateCollection.title)
             self.didChangeHeight?(currentVC.height)
         }
@@ -64,11 +60,12 @@ extension CalendarPageViewController: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
-        let vc = DateCollectionViewController.instantiate()
-        vc.dateCollection = dateCollection?.prevDateCollection
-        vc.didChangeSelectedDate = { [weak self] selectedDate in
-            self?.dateCollection.selectedDate = selectedDate
+        guard let currentVC = pageViewController.viewControllers?[0] as? DateCollectionViewController else {
+            return nil
         }
+
+        let vc = DateCollectionViewController.instantiate()
+        vc.dateCollection = currentVC.dateCollection?.prevDateCollection
         vc.didChangeMonth = { [weak self] title in
             self?.didChangeMonth?(title)
         }
@@ -77,11 +74,12 @@ extension CalendarPageViewController: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 
-        let vc = DateCollectionViewController.instantiate()
-        vc.dateCollection = dateCollection?.nextDateCollection
-        vc.didChangeSelectedDate = { [weak self] selectedDate in
-            self?.dateCollection.selectedDate = selectedDate
+        guard let currentVC = pageViewController.viewControllers?[0] as? DateCollectionViewController else {
+            return nil
         }
+
+        let vc = DateCollectionViewController.instantiate()
+        vc.dateCollection = currentVC.dateCollection?.nextDateCollection
         vc.didChangeMonth = { [weak self] title in
             self?.didChangeMonth?(title)
         }

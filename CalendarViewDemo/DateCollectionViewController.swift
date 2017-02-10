@@ -17,7 +17,6 @@ class DateCollectionViewController: UIViewController, StoryboardInstantiatable {
     var height: CGFloat {
         return CGFloat(dateCollection.weekCount * cellHeight)
     }
-    var didChangeSelectedDate: ((Date) -> Void)?
     var didChangeMonth: ((String) -> Void)?
 
     override func viewDidLoad() {
@@ -34,9 +33,8 @@ class DateCollectionViewController: UIViewController, StoryboardInstantiatable {
 extension DateCollectionViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+
         dateCollection.selectedDate = dateCollection.dates[indexPath.row]
-        didChangeSelectedDate?(dateCollection.selectedDate)
         didChangeMonth?(dateCollection.title)
         collectionView.reloadData()
     }
