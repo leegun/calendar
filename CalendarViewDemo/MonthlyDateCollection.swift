@@ -18,6 +18,8 @@ struct MonthlyDateCollection: DateCollection {
     var activeDates: [Date]
     var selectedDate: Date
 
+    let firstDate: Date
+
     var prevDateCollection: DateCollection {
         var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
         components.month = components.month! - 1
@@ -43,11 +45,13 @@ struct MonthlyDateCollection: DateCollection {
         // selectedDate
         self.selectedDate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: selectedDate))!
 
-        // startOfDay
-        let startOfDay = calendar.startOfDay(for: selectedDate)
+        // firstDate
+        var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
+        components.day = 1
+        firstDate = calendar.date(from: components)!
 
         // weekCount
-        let rangeOfWeeks = calendar.range(of: .weekOfMonth, in: .month, for: startOfDay)!
+        let rangeOfWeeks = calendar.range(of: .weekOfMonth, in: .month, for: firstDate)!
         self.weekCount = rangeOfWeeks.count
 
         // dayCount
@@ -55,11 +59,11 @@ struct MonthlyDateCollection: DateCollection {
 
         // dates
         dates = [Date]()
-        let ordinalityOfFirstDay =  calendar.ordinality(of: .day, in: .weekOfMonth, for: startOfDay)!
+        let ordinalityOfFirstDay =  calendar.ordinality(of: .day, in: .weekOfMonth, for: firstDate)!
         for day in 1...dayCount {
             var dateComponents = DateComponents()
             dateComponents.day = day - ordinalityOfFirstDay
-            if let date = calendar.date(byAdding: dateComponents, to: startOfDay) {
+            if let date = calendar.date(byAdding: dateComponents, to: firstDate) {
                 dates.append(date)
             }
         }
@@ -69,8 +73,9 @@ struct MonthlyDateCollection: DateCollection {
     }
 
     func isCurrentMonth(date: Date) -> Bool {
+
         let components = calendar.dateComponents([.year, .month], from: date)
-        let currentComponents = calendar.dateComponents([.year, .month], from: calendar.startOfDay(for: selectedDate))
+        let currentComponents = calendar.dateComponents([.year, .month], from: firstDate)
         return (components.month == currentComponents.month) && (components.year == currentComponents.year)
     }
 }
