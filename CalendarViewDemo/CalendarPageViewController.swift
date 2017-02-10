@@ -10,6 +10,8 @@ import UIKit
 
 class CalendarPageViewController: UIPageViewController {
 
+    var activeDates = [Date]()
+
     var didChangeHeight: ((CGFloat) -> Void)?
     var didChangeMonth: ((String) -> Void)?
     var didChangeDate: ((Date) -> Void)?
@@ -32,7 +34,7 @@ class CalendarPageViewController: UIPageViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        setViewController(dateCollection: MonthlyDateCollection())
+        setViewController(dateCollection: MonthlyDateCollection(activeDates: activeDates))
     }
 
     func setViewController(dateCollection: DateCollection) {

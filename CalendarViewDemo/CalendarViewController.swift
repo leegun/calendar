@@ -12,9 +12,11 @@ class CalendarViewController: UIViewController {
 
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var contentTitle: RounedLabel!
     @IBOutlet weak var containerHeight: NSLayoutConstraint!
 
     var calendarPageViewController: CalendarPageViewController!
+    let contents: [Content] = Content.dummy
 
     override func viewDidLoad() {
 
@@ -25,6 +27,7 @@ class CalendarViewController: UIViewController {
             return
         }
         self.calendarPageViewController = calendarPageViewController
+        self.calendarPageViewController.activeDates = contents.map { return $0.calendarDate }
         self.calendarPageViewController.didChangeHeight = { [weak self] height in
             self?.containerHeight.constant = height
             self?.view.layoutIfNeeded()
@@ -32,12 +35,23 @@ class CalendarViewController: UIViewController {
         self.calendarPageViewController.didChangeMonth = { [weak self] title in
             self?.monthLabel.text = title
         }
-        self.calendarPageViewController.didChangeDate = { [weak self] date in
-            print(date)
+        self.calendarPageViewController.didChangeDate = { [weak self] selectedDate in
+            print(selectedDate)
+            self?.updateContent(selectedDate: selectedDate)
         }
     }
 
     func tapContentView(_ gestureRecognizer: UITapGestureRecognizer) {
         calendarPageViewController.changeDateCollection()
+    }
+
+    func updateContent(selectedDate: Date) {
+        for content in contents {
+            if Calendar(identifier: .gregorian).isDate(content.calendarDate, inSameDayAs: selectedDate) {
+                contentTitle.text = content.title
+                return
+            }
+        }
+        contentTitle.text = "予定はありません。"
     }
 }

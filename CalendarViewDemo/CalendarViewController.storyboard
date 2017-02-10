@@ -152,6 +152,7 @@
                     </view>
                     <connections>
                         <outlet property="containerHeight" destination="93s-r2-KaX" id="inC-N7-Die"/>
+                        <outlet property="contentTitle" destination="MVK-4p-zww" id="Eof-AQ-6YQ"/>
                         <outlet property="contentView" destination="lGv-La-VaJ" id="lgv-jj-EFe"/>
                         <outlet property="monthLabel" destination="cP3-nk-rfJ" id="XVH-gf-Jif"/>
                     </connections>
