@@ -16,6 +16,9 @@ class CalendarPageViewController: UIPageViewController {
     var didChangeMonth: ((String) -> Void)?
     var didChangeDate: ((Date) -> Void)?
 
+    var currentVC: DateCollectionViewController {
+        return self.viewControllers?[0] as! DateCollectionViewController
+    }
     var dateCollectionViewController: DateCollectionViewController {
         let vc = DateCollectionViewController.instantiate()
         vc.didChangeMonth = { [weak self] title in
@@ -37,17 +40,51 @@ class CalendarPageViewController: UIPageViewController {
         setViewController(dateCollection: MonthlyDateCollection(activeDates: activeDates))
     }
 
-    func setViewController(dateCollection: DateCollection) {
+    func setViewController(dateCollection: DateCollection, direction: UIPageViewControllerNavigationDirection = .forward, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
         let vc = dateCollectionViewController
         vc.dateCollection = dateCollection
-        self.didChangeHeight?(vc.height)
-        setViewControllers([vc], direction: .forward, animated: false, completion: nil)
+        didChangeHeight?(vc.height)
+        setViewControllers([vc], direction: direction, animated: animated, completion: completion)
     }
 
     func changeDateCollection() {
-        if let currentVC = self.viewControllers?[0] as? DateCollectionViewController {
-            setViewController(dateCollection: currentVC.dateCollection.changeMode)
+        setViewController(dateCollection: currentVC.dateCollection.changeMode)
+    }
+
+    func prevCalendarDate() {
+        let prevDate = currentVC.dateCollection.prevDate
+        if currentVC.dateCollection.isCurrentMonth(date: prevDate) {
+            changeCalendarDate(selectedDate: prevDate)
+        } else {
+            currentVC.dateCollection = currentVC.dateCollection.prevDateCollection
+            currentVC.dateCollection.selectedDate = prevDate
+            setViewController(dateCollection: currentVC.dateCollection) { [weak self] completed in
+                if completed { self?.executeDidChangies() }
+            }
         }
+    }
+
+    func nextCalendarDate() {
+        let nextDate = currentVC.dateCollection.nextDate
+        if currentVC.dateCollection.isCurrentMonth(date: nextDate) {
+            changeCalendarDate(selectedDate: nextDate)
+        } else {
+            currentVC.dateCollection = currentVC.dateCollection.nextDateCollection
+            currentVC.dateCollection.selectedDate = nextDate
+            setViewController(dateCollection: currentVC.dateCollection) { [weak self] completed in
+                if completed { self?.executeDidChangies() }
+            }
+        }
+    }
+
+    func changeCalendarDate(selectedDate: Date) {
+        currentVC.reload(selectedDate: selectedDate)
+    }
+
+    func executeDidChangies() {
+        didChangeMonth?(currentVC.dateCollection.title)
+        didChangeHeight?(currentVC.height)
+        didChangeDate?(currentVC.dateCollection.selectedDate)
     }
 }
 
@@ -59,11 +96,7 @@ extension CalendarPageViewController: UIPageViewControllerDelegate {
 
         guard completed else { return }
 
-        if let currentVC = pageViewController.viewControllers?[0] as? DateCollectionViewController {
-            self.didChangeMonth?(currentVC.dateCollection.title)
-            self.didChangeHeight?(currentVC.height)
-            self.didChangeDate?(currentVC.dateCollection.selectedDate)
-        }
+        executeDidChangies()
     }
 }
 
@@ -71,20 +104,12 @@ extension CalendarPageViewController: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
-        guard let currentVC = pageViewController.viewControllers?[0] as? DateCollectionViewController else {
-            return nil
-        }
-
         let vc = dateCollectionViewController
         vc.dateCollection = currentVC.dateCollection?.prevDateCollection
         return vc
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-
-        guard let currentVC = pageViewController.viewControllers?[0] as? DateCollectionViewController else {
-            return nil
-        }
 
         let vc = dateCollectionViewController
         vc.dateCollection = currentVC.dateCollection?.nextDateCollection

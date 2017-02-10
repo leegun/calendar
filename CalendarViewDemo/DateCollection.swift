@@ -21,6 +21,8 @@ protocol DateCollection {
     var todayComponents: DateComponents { get }
     var today: Date { get }
     var title: String { get }
+    var prevDate: Date { get }
+    var nextDate: Date { get }
     var prevDateCollection: DateCollection { get }
     var nextDateCollection: DateCollection { get }
     var changeMode: DateCollection { get }
@@ -47,6 +49,18 @@ extension DateCollection {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/yyyy"
         return formatter.string(from: selectedDate)
+    }
+
+    var prevDate: Date {
+        var components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+        components.day = components.day! - 2 // １日戻るのになぜか２日分引く必要があった
+        return calendar.date(from: components)!
+    }
+
+    var nextDate: Date {
+        var components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+        components.day = components.day! + 1
+        return calendar.date(from: components)!
     }
 
     func isToday(date: Date) -> Bool {

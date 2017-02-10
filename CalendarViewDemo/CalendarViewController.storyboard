@@ -127,12 +127,37 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXT-Fv-sIf">
+                                        <rect key="frame" x="300" y="236" width="55" height="30"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="  NEXT  ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="nextDay:" destination="gg8-I0-FjJ" eventType="touchUpInside" id="b4C-6S-fPR"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sq-Wz-IFj">
+                                        <rect key="frame" x="20" y="236" width="54" height="30"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="  PREV  ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="nextDay:" destination="gg8-I0-FjJ" eventType="touchUpInside" id="iF6-e5-5H6"/>
+                                            <action selector="prevDay:" destination="gg8-I0-FjJ" eventType="touchUpInside" id="Ejd-Uf-gKi"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="MVK-4p-zww" firstAttribute="top" secondItem="lGv-La-VaJ" secondAttribute="top" constant="20" id="3ZQ-6f-z8B"/>
                                     <constraint firstItem="MVK-4p-zww" firstAttribute="leading" secondItem="lGv-La-VaJ" secondAttribute="leading" constant="20" id="NI5-dE-i92"/>
+                                    <constraint firstAttribute="bottom" secondItem="2sq-Wz-IFj" secondAttribute="bottom" constant="20" id="SFA-O1-tgE"/>
+                                    <constraint firstAttribute="bottom" secondItem="wXT-Fv-sIf" secondAttribute="bottom" constant="20" id="cNi-Xt-sfk"/>
+                                    <constraint firstItem="2sq-Wz-IFj" firstAttribute="leading" secondItem="lGv-La-VaJ" secondAttribute="leading" constant="20" id="gnZ-Jg-6Dd"/>
                                     <constraint firstAttribute="trailing" secondItem="MVK-4p-zww" secondAttribute="trailing" constant="20" id="jc2-2E-5rV"/>
+                                    <constraint firstAttribute="trailing" secondItem="wXT-Fv-sIf" secondAttribute="trailing" constant="20" id="zkW-p1-526"/>
                                 </constraints>
                             </view>
                         </subviews>

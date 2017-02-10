@@ -36,9 +36,16 @@ class CalendarViewController: UIViewController {
             self?.monthLabel.text = title
         }
         self.calendarPageViewController.didChangeDate = { [weak self] selectedDate in
-            print(selectedDate)
             self?.updateContent(selectedDate: selectedDate)
         }
+    }
+    
+    @IBAction func prevDay(_ sender: Any) {
+        calendarPageViewController.prevCalendarDate()
+    }
+
+    @IBAction func nextDay(_ sender: Any) {
+        calendarPageViewController.nextCalendarDate()
     }
 
     func tapContentView(_ gestureRecognizer: UITapGestureRecognizer) {
