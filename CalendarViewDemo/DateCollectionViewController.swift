@@ -29,16 +29,21 @@ class DateCollectionViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillAppear(_ animated: Bool) {
         collectionView.reloadData()
     }
+
+    func reload(selectedDate: Date? = nil) {
+        guard let selectedDate = selectedDate else { return }
+        dateCollection.selectedDate = selectedDate
+        didChangeMonth?(dateCollection.title)
+        didChangeDate?(dateCollection.selectedDate)
+        collectionView.reloadData()
+    }
 }
 
 extension DateCollectionViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        dateCollection.selectedDate = dateCollection.dates[indexPath.row]
-        didChangeMonth?(dateCollection.title)
-        didChangeDate?(dateCollection.selectedDate)
-        collectionView.reloadData()
+        reload(selectedDate: dateCollection.dates[indexPath.row])
     }
 }
 

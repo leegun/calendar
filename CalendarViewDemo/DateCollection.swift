@@ -14,6 +14,7 @@ protocol DateCollection {
     var daysPerWeek: Int { get }
     var weekCount: Int { get }
     var dayCount: Int { get }
+    var firstDate: Date { get }
     var dates: [Date] { get }
     var activeDates: [Date] { get }
     var selectedDate: Date { get set }

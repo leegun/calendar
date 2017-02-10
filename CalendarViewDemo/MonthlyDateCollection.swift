@@ -14,11 +14,10 @@ struct MonthlyDateCollection: DateCollection {
     let daysPerWeek: Int = 7
     let weekCount: Int
     let dayCount: Int
+    let firstDate: Date
     var dates: [Date]
     var activeDates: [Date]
     var selectedDate: Date
-
-    let firstDate: Date
 
     var prevDateCollection: DateCollection {
         var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)

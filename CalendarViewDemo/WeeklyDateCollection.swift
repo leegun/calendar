@@ -14,6 +14,7 @@ struct WeeklyDateCollection: DateCollection {
     let daysPerWeek: Int = 7
     let weekCount: Int = 1
     let dayCount: Int = 7
+    let firstDate: Date
     var dates: [Date]
     var activeDates: [Date]
     var selectedDate: Date
@@ -42,7 +43,12 @@ struct WeeklyDateCollection: DateCollection {
         
         // selectedDate
         self.selectedDate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: selectedDate))!
-        
+
+        // firstDate
+        var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
+        components.day = 1
+        firstDate = calendar.date(from: components)!
+
         // dates
         dates = [Date]()
         let ordinalityOfFirstDay =  calendar.ordinality(of: .day, in: .weekOfMonth, for: selectedDate)!
@@ -60,6 +66,9 @@ struct WeeklyDateCollection: DateCollection {
     }
 
     func isCurrentMonth(date: Date) -> Bool {
-        return true // allways true when weekly
+
+        let components = calendar.dateComponents([.year, .month], from: date)
+        let currentComponents = calendar.dateComponents([.year, .month], from: firstDate)
+        return (components.month == currentComponents.month) && (components.year == currentComponents.year)
     }
 }
