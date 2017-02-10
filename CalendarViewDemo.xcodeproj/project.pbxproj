@@ -23,6 +23,7 @@
 		8BF60E901E4ABB4500EA05EB /* XibInstantiatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E8E1E4ABB4500EA05EB /* XibInstantiatable.swift */; };
 		8BF60E931E4C364200EA05EB /* DateCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E921E4C364200EA05EB /* DateCollection.swift */; };
 		8BF60E951E4C407200EA05EB /* WeeklyDateCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E941E4C407200EA05EB /* WeeklyDateCollection.swift */; };
+		8BF60E981E4D591C00EA05EB /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E971E4D591B00EA05EB /* Content.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		8BF60E8E1E4ABB4500EA05EB /* XibInstantiatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XibInstantiatable.swift; sourceTree = "<group>"; };
 		8BF60E921E4C364200EA05EB /* DateCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollection.swift; sourceTree = "<group>"; };
 		8BF60E941E4C407200EA05EB /* WeeklyDateCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyDateCollection.swift; sourceTree = "<group>"; };
+		8BF60E971E4D591B00EA05EB /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +80,8 @@
 			children = (
 				8BF60E531E4801B000EA05EB /* AppDelegate.swift */,
 				8BF60E6D1E4868F400EA05EB /* UIs */,
-				8BF60E911E4C35BE00EA05EB /* Model */,
+				8BF60E911E4C35BE00EA05EB /* Collection */,
+				8BF60E961E4D590100EA05EB /* Model */,
 				8BF60E8C1E4ABB4500EA05EB /* Utilities */,
 				8BF60E5A1E4801B000EA05EB /* Assets.xcassets */,
 				8BF60E5C1E4801B000EA05EB /* LaunchScreen.storyboard */,
@@ -127,12 +130,20 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		8BF60E911E4C35BE00EA05EB /* Model */ = {
+		8BF60E911E4C35BE00EA05EB /* Collection */ = {
 			isa = PBXGroup;
 			children = (
 				8BF60E921E4C364200EA05EB /* DateCollection.swift */,
 				8BF60E6B1E480D1200EA05EB /* MonthlyDateCollection.swift */,
 				8BF60E941E4C407200EA05EB /* WeeklyDateCollection.swift */,
+			);
+			name = Collection;
+			sourceTree = "<group>";
+		};
+		8BF60E961E4D590100EA05EB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8BF60E971E4D591B00EA05EB /* Content.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -218,6 +229,7 @@
 				8BF60E901E4ABB4500EA05EB /* XibInstantiatable.swift in Sources */,
 				8BF60E831E4AA43800EA05EB /* CalendarPageViewController.swift in Sources */,
 				8BF60E541E4801B000EA05EB /* AppDelegate.swift in Sources */,
+				8BF60E981E4D591C00EA05EB /* Content.swift in Sources */,
 				8BF60E931E4C364200EA05EB /* DateCollection.swift in Sources */,
 				8BF60E951E4C407200EA05EB /* WeeklyDateCollection.swift in Sources */,
 				8BF60E8F1E4ABB4500EA05EB /* StoryboardInstantiatable.swift in Sources */,

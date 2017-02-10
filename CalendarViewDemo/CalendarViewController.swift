@@ -32,6 +32,9 @@ class CalendarViewController: UIViewController {
         self.calendarPageViewController.didChangeMonth = { [weak self] title in
             self?.monthLabel.text = title
         }
+        self.calendarPageViewController.didChangeDate = { [weak self] date in
+            print(date)
+        }
     }
 
     func tapContentView(_ gestureRecognizer: UITapGestureRecognizer) {
