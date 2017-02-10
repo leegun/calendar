@@ -127,11 +127,22 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UOI-Lw-kon">
+                                        <rect key="frame" x="164" y="216" width="46" height="30"/>
+                                        <state key="normal" title="閉じる">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="changeToMonthlyMode:" destination="gg8-I0-FjJ" eventType="touchUpInside" id="CI7-3L-VnF"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="UOI-Lw-kon" firstAttribute="centerX" secondItem="lGv-La-VaJ" secondAttribute="centerX" id="1cu-0i-54l"/>
                                     <constraint firstItem="MVK-4p-zww" firstAttribute="top" secondItem="lGv-La-VaJ" secondAttribute="top" constant="20" id="3ZQ-6f-z8B"/>
                                     <constraint firstItem="MVK-4p-zww" firstAttribute="leading" secondItem="lGv-La-VaJ" secondAttribute="leading" constant="20" id="NI5-dE-i92"/>
+                                    <constraint firstAttribute="bottom" secondItem="UOI-Lw-kon" secondAttribute="bottom" constant="40" id="iNB-Tc-Ptg"/>
                                     <constraint firstAttribute="trailing" secondItem="MVK-4p-zww" secondAttribute="trailing" constant="20" id="jc2-2E-5rV"/>
                                 </constraints>
                             </view>

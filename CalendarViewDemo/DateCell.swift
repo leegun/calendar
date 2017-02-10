@@ -47,16 +47,25 @@ class DateCell: UICollectionViewCell {
 
     func configure(dateCollection: DateCollection, indexPath: IndexPath) {
 
-        let dateOfIndexPath = dateCollection.dates[indexPath.row]
-        let selected = dateCollection.selectedDate == dateOfIndexPath
-        let selectedDateIsToday = dateCollection.selectedDate == dateCollection.today
-        let isToday = dateOfIndexPath == dateCollection.today
-        dayLabel.text = dateCollection.conversionDateFormat(date: dateOfIndexPath)
+        let indexPathDate = dateCollection.dates[indexPath.row]
+        let selected = dateCollection.selectedDate == indexPathDate
+        let selectedToday = dateCollection.selectedDate == dateCollection.today
+        let isToday = indexPathDate == dateCollection.today
+        dayLabel.text = dateCollection.conversionDateFormat(date: indexPathDate)
         
-        isToday ? todayLabel(selected: selectedDateIsToday) : defaultLabel(selected: selected)
+        isToday ? todayLabel(selected: selectedToday) : defaultLabel(selected: selected)
         
-        if !dateCollection.isCurrentMonth(date: dateOfIndexPath) && !selected {
+        if !dateCollection.isCurrentMonth(date: indexPathDate) && !selected {
             dayLabel.textColor = .lightGray
+        }
+
+        for activeDate in dateCollection.activeDates {
+            if activeDate == indexPathDate {
+                activeView.alpha = 1
+                break
+            } else {
+                activeView.alpha = 0
+            }
         }
     }
 }

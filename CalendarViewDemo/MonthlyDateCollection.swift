@@ -16,24 +16,9 @@ struct MonthlyDateCollection: DateCollection {
     let weekCount: Int
     let dayCount: Int
     var dates: [Date]
+    var activeDates: [Date]
     var selectedDate: Date
 
-    var todayComponents: DateComponents {
-        let components = calendar.dateComponents([.year, .month, .day], from: Date())
-        return components
-    }
-
-    var today: Date {
-        let today = calendar.date(from: todayComponents)
-        return today!
-    }
-
-    var title: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/yyyy"
-        return formatter.string(from: selectedDate)
-    }
-    
     var prevDateCollection: DateCollection {
         var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
         components.month = components.month! - 1
@@ -41,7 +26,7 @@ struct MonthlyDateCollection: DateCollection {
         let date = calendar.date(from: components)!
         return MonthlyDateCollection(selectedDate: date)
     }
-    
+
     var nextDateCollection: DateCollection {
         var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
         components.month = components.month! + 1
@@ -50,11 +35,14 @@ struct MonthlyDateCollection: DateCollection {
         return MonthlyDateCollection(selectedDate: date)
     }
 
-    init(selectedDate: Date = Date()) {
+    var changeMode: DateCollection {
+        return WeeklyDateCollection(selectedDate: selectedDate)
+    }
+
+    init(selectedDate: Date = Date(), activeDates: [Date] = [Date]()) {
 
         // selectedDate
-        let tempDate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: selectedDate))!
-        self.selectedDate = tempDate
+        self.selectedDate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: selectedDate))!
 
         // firstDate
         var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
@@ -79,17 +67,14 @@ struct MonthlyDateCollection: DateCollection {
                 dates.append(date)
             }
         }
+
+        // activeDates
+        self.activeDates = activeDates
     }
 
     func isCurrentMonth(date: Date) -> Bool {
         let components = calendar.dateComponents([.year, .month], from: date)
         let currentComponents = calendar.dateComponents([.year, .month], from: firstDate)
         return (components.month == currentComponents.month) && (components.year == currentComponents.year)
-    }
-
-    func conversionDateFormat(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
-        return formatter.string(from: date)
     }
 }

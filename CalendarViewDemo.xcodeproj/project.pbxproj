@@ -22,6 +22,7 @@
 		8BF60E8F1E4ABB4500EA05EB /* StoryboardInstantiatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E8D1E4ABB4500EA05EB /* StoryboardInstantiatable.swift */; };
 		8BF60E901E4ABB4500EA05EB /* XibInstantiatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E8E1E4ABB4500EA05EB /* XibInstantiatable.swift */; };
 		8BF60E931E4C364200EA05EB /* DateCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E921E4C364200EA05EB /* DateCollection.swift */; };
+		8BF60E951E4C407200EA05EB /* WeeklyDateCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E941E4C407200EA05EB /* WeeklyDateCollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		8BF60E8D1E4ABB4500EA05EB /* StoryboardInstantiatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardInstantiatable.swift; sourceTree = "<group>"; };
 		8BF60E8E1E4ABB4500EA05EB /* XibInstantiatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XibInstantiatable.swift; sourceTree = "<group>"; };
 		8BF60E921E4C364200EA05EB /* DateCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollection.swift; sourceTree = "<group>"; };
+		8BF60E941E4C407200EA05EB /* WeeklyDateCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyDateCollection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 			children = (
 				8BF60E921E4C364200EA05EB /* DateCollection.swift */,
 				8BF60E6B1E480D1200EA05EB /* MonthlyDateCollection.swift */,
+				8BF60E941E4C407200EA05EB /* WeeklyDateCollection.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				8BF60E831E4AA43800EA05EB /* CalendarPageViewController.swift in Sources */,
 				8BF60E541E4801B000EA05EB /* AppDelegate.swift in Sources */,
 				8BF60E931E4C364200EA05EB /* DateCollection.swift in Sources */,
+				8BF60E951E4C407200EA05EB /* WeeklyDateCollection.swift in Sources */,
 				8BF60E8F1E4ABB4500EA05EB /* StoryboardInstantiatable.swift in Sources */,
 				8BF60E851E4AA5E700EA05EB /* DateCollectionViewController.swift in Sources */,
 				8BF60E711E4896AC00EA05EB /* RounedView.swift in Sources */,

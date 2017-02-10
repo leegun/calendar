@@ -22,10 +22,23 @@ class CalendarPageViewController: UIPageViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
         let vc = DateCollectionViewController.instantiate()
         self.dateCollection = MonthlyDateCollection()
         vc.dateCollection = self.dateCollection
+        vc.didChangeMonth = { [weak self] title in
+            self?.didChangeMonth?(title)
+        }
+        self.didChangeHeight?(vc.height)
+        setViewControllers([vc], direction: .forward, animated: false, completion: nil)
+    }
+
+    func changeDateCollection() {
+        let vc = DateCollectionViewController.instantiate()
+        self.dateCollection = dateCollection.changeMode
+        vc.dateCollection = self.dateCollection
+        vc.didChangeMonth = { [weak self] title in
+            self?.didChangeMonth?(title)
+        }
         self.didChangeHeight?(vc.height)
         setViewControllers([vc], direction: .forward, animated: false, completion: nil)
     }
@@ -53,6 +66,9 @@ extension CalendarPageViewController: UIPageViewControllerDataSource {
 
         let vc = DateCollectionViewController.instantiate()
         vc.dateCollection = dateCollection?.prevDateCollection
+        vc.didChangeMonth = { [weak self] title in
+            self?.didChangeMonth?(title)
+        }
         return vc
     }
 
@@ -60,6 +76,9 @@ extension CalendarPageViewController: UIPageViewControllerDataSource {
 
         let vc = DateCollectionViewController.instantiate()
         vc.dateCollection = dateCollection?.nextDateCollection
+        vc.didChangeMonth = { [weak self] title in
+            self?.didChangeMonth?(title)
+        }
         return vc
     }
 }
