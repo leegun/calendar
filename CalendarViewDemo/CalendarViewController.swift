@@ -37,8 +37,4 @@ class CalendarViewController: UIViewController {
     func tapContentView(_ gestureRecognizer: UITapGestureRecognizer) {
         calendarPageViewController.changeDateCollection()
     }
-
-    @IBAction func changeToMonthlyMode(_ sender: Any) {
-        calendarPageViewController.changeDateCollection()
-    }
 }

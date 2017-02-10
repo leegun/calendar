@@ -22,9 +22,16 @@ class CalendarPageViewController: UIPageViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        setViewController(dateCollection: MonthlyDateCollection())
+    }
+
+    func setViewController(dateCollection: DateCollection) {
+        self.dateCollection = dateCollection
         let vc = DateCollectionViewController.instantiate()
-        self.dateCollection = MonthlyDateCollection()
         vc.dateCollection = self.dateCollection
+        vc.didChangeSelectedDate = { [weak self] selectedDate in
+            self?.dateCollection.selectedDate = selectedDate
+        }
         vc.didChangeMonth = { [weak self] title in
             self?.didChangeMonth?(title)
         }
@@ -33,14 +40,7 @@ class CalendarPageViewController: UIPageViewController {
     }
 
     func changeDateCollection() {
-        let vc = DateCollectionViewController.instantiate()
-        self.dateCollection = dateCollection.changeMode
-        vc.dateCollection = self.dateCollection
-        vc.didChangeMonth = { [weak self] title in
-            self?.didChangeMonth?(title)
-        }
-        self.didChangeHeight?(vc.height)
-        setViewControllers([vc], direction: .forward, animated: false, completion: nil)
+        setViewController(dateCollection: self.dateCollection.changeMode)
     }
 }
 
@@ -66,6 +66,9 @@ extension CalendarPageViewController: UIPageViewControllerDataSource {
 
         let vc = DateCollectionViewController.instantiate()
         vc.dateCollection = dateCollection?.prevDateCollection
+        vc.didChangeSelectedDate = { [weak self] selectedDate in
+            self?.dateCollection.selectedDate = selectedDate
+        }
         vc.didChangeMonth = { [weak self] title in
             self?.didChangeMonth?(title)
         }
@@ -76,6 +79,9 @@ extension CalendarPageViewController: UIPageViewControllerDataSource {
 
         let vc = DateCollectionViewController.instantiate()
         vc.dateCollection = dateCollection?.nextDateCollection
+        vc.didChangeSelectedDate = { [weak self] selectedDate in
+            self?.dateCollection.selectedDate = selectedDate
+        }
         vc.didChangeMonth = { [weak self] title in
             self?.didChangeMonth?(title)
         }
