@@ -10,7 +10,7 @@ import UIKit
 
 class DateCell: UICollectionViewCell {
 
-    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var dayLabel: RounedLabel!
     @IBOutlet weak var activeView: RounedView!
 
     required init(coder aDecoder: NSCoder) {
@@ -21,41 +21,31 @@ class DateCell: UICollectionViewCell {
         super.init(frame: frame)
     }
 
-    func todayLabel(selected: Bool) {
-        if selected {
-            dayLabel.backgroundColor = .red
-            dayLabel.textColor = .white
-            dayLabel.layer.cornerRadius = 15
-            dayLabel.layer.masksToBounds = true
-        } else {
-            dayLabel.backgroundColor = .clear
-            dayLabel.textColor = .red
-        }
-    }
-
-    func defaultLabel(selected: Bool) {
-        if selected {
-            dayLabel.backgroundColor = .darkGray
-            dayLabel.textColor = .white
-            dayLabel.layer.cornerRadius = 15
-            dayLabel.layer.masksToBounds = true
-        } else {
-            dayLabel.backgroundColor = .clear
-            dayLabel.textColor = .darkGray
-        }
-    }
-
     func configure(dateCollection: DateCollection, indexPath: IndexPath) {
 
         let indexPathDate = dateCollection.dates[indexPath.row]
-        let selected = dateCollection.selectedDate == indexPathDate
-        let selectedToday = dateCollection.selectedDate == dateCollection.today
-        let isToday = indexPathDate == dateCollection.today
+
         dayLabel.text = dateCollection.conversionDateFormat(date: indexPathDate)
-        
-        isToday ? todayLabel(selected: selectedToday) : defaultLabel(selected: selected)
-        
-        if !dateCollection.isCurrentMonth(date: indexPathDate) && !selected {
+
+        if dateCollection.isToday(date: indexPathDate) {
+            if dateCollection.isSelectedDate(date: dateCollection.today) {
+                dayLabel.backgroundColor = .red
+                dayLabel.textColor = .white
+            } else {
+                dayLabel.backgroundColor = .clear
+                dayLabel.textColor = .red
+            }
+        } else {
+            if dateCollection.isSelectedDate(date: indexPathDate) {
+                dayLabel.backgroundColor = .darkGray
+                dayLabel.textColor = .white
+            } else {
+                dayLabel.backgroundColor = .clear
+                dayLabel.textColor = .darkGray
+            }
+        }
+
+        if !dateCollection.isCurrentMonth(date: indexPathDate) && !dateCollection.isSelectedDate(date: indexPathDate) {
             dayLabel.textColor = .lightGray
         }
 

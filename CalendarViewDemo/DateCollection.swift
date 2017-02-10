@@ -24,6 +24,8 @@ protocol DateCollection {
     var nextDateCollection: DateCollection { get }
     var changeMode: DateCollection { get }
 
+    func isToday(date: Date) -> Bool
+    func isSelectedDate(date: Date) -> Bool
     func isCurrentMonth(date: Date) -> Bool
     func conversionDateFormat(date: Date) -> String
 }
@@ -44,6 +46,14 @@ extension DateCollection {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/yyyy"
         return formatter.string(from: selectedDate)
+    }
+
+    func isToday(date: Date) -> Bool {
+        return calendar.isDateInToday(date)
+    }
+
+    func isSelectedDate(date: Date) -> Bool {
+        return calendar.isDate(selectedDate, inSameDayAs: date)
     }
 
     func conversionDateFormat(date: Date) -> String {

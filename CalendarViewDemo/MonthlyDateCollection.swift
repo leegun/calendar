@@ -11,7 +11,6 @@ import Foundation
 struct MonthlyDateCollection: DateCollection {
 
     let calendar = Calendar(identifier: .gregorian)
-    let firstDate: Date
     let daysPerWeek: Int = 7
     let weekCount: Int
     let dayCount: Int
@@ -44,14 +43,11 @@ struct MonthlyDateCollection: DateCollection {
         // selectedDate
         self.selectedDate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: selectedDate))!
 
-        // firstDate
-        var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
-        components.day = 1
-        let firstDate = calendar.date(from: components)!
-        self.firstDate = firstDate
+        // startOfDay
+        let startOfDay = calendar.startOfDay(for: selectedDate)
 
         // weekCount
-        let rangeOfWeeks = calendar.range(of: .weekOfMonth, in: .month, for: firstDate)!
+        let rangeOfWeeks = calendar.range(of: .weekOfMonth, in: .month, for: startOfDay)!
         self.weekCount = rangeOfWeeks.count
 
         // dayCount
@@ -59,11 +55,11 @@ struct MonthlyDateCollection: DateCollection {
 
         // dates
         dates = [Date]()
-        let ordinalityOfFirstDay =  calendar.ordinality(of: .day, in: .weekOfMonth, for: firstDate)!
+        let ordinalityOfFirstDay =  calendar.ordinality(of: .day, in: .weekOfMonth, for: startOfDay)!
         for day in 1...dayCount {
             var dateComponents = DateComponents()
             dateComponents.day = day - ordinalityOfFirstDay
-            if let date = calendar.date(byAdding: dateComponents, to: firstDate) {
+            if let date = calendar.date(byAdding: dateComponents, to: startOfDay) {
                 dates.append(date)
             }
         }
@@ -74,7 +70,7 @@ struct MonthlyDateCollection: DateCollection {
 
     func isCurrentMonth(date: Date) -> Bool {
         let components = calendar.dateComponents([.year, .month], from: date)
-        let currentComponents = calendar.dateComponents([.year, .month], from: firstDate)
+        let currentComponents = calendar.dateComponents([.year, .month], from: calendar.startOfDay(for: selectedDate))
         return (components.month == currentComponents.month) && (components.year == currentComponents.year)
     }
 }
