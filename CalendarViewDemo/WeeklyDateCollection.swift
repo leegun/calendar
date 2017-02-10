@@ -24,7 +24,7 @@ struct WeeklyDateCollection: DateCollection {
         let dateCount =  calendar.ordinality(of: .day, in: .weekOfMonth, for: selectedDate)!
         components.day = components.day! - dateCount
         let date = calendar.date(from: components)!
-        return WeeklyDateCollection(selectedDate: date)
+        return WeeklyDateCollection(selectedDate: date, activeDates: activeDates)
     }
 
     var nextDateCollection: DateCollection {
@@ -32,11 +32,11 @@ struct WeeklyDateCollection: DateCollection {
         let dateCount =  (daysPerWeek + 1) - calendar.ordinality(of: .day, in: .weekOfMonth, for: selectedDate)!
         components.day = components.day! + dateCount
         let date = calendar.date(from: components)!
-        return WeeklyDateCollection(selectedDate: date)
+        return WeeklyDateCollection(selectedDate: date, activeDates: activeDates)
     }
 
     var changeMode: DateCollection {
-        return MonthlyDateCollection(selectedDate: selectedDate)
+        return MonthlyDateCollection(selectedDate: selectedDate, activeDates: activeDates)
     }
 
     init(selectedDate: Date = Date(), activeDates: [Date] = [Date]()) {

@@ -24,7 +24,7 @@ struct MonthlyDateCollection: DateCollection {
         components.month = components.month! - 1
         components.day = components.month == todayComponents.month && components.year == todayComponents.year ? todayComponents.day : 1
         let date = calendar.date(from: components)!
-        return MonthlyDateCollection(selectedDate: date)
+        return MonthlyDateCollection(selectedDate: date, activeDates: activeDates)
     }
 
     var nextDateCollection: DateCollection {
@@ -32,11 +32,11 @@ struct MonthlyDateCollection: DateCollection {
         components.month = components.month! + 1
         components.day = components.month == todayComponents.month && components.year == todayComponents.year ? todayComponents.day : 1
         let date = calendar.date(from: components)!
-        return MonthlyDateCollection(selectedDate: date)
+        return MonthlyDateCollection(selectedDate: date, activeDates: activeDates)
     }
 
     var changeMode: DateCollection {
-        return WeeklyDateCollection(selectedDate: selectedDate)
+        return WeeklyDateCollection(selectedDate: selectedDate, activeDates: activeDates)
     }
 
     init(selectedDate: Date = Date(), activeDates: [Date] = [Date]()) {
