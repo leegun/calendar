@@ -24,7 +24,8 @@ protocol DateManager {
     var nextDate: Date { get }
     var prevDateManager: DateManager { get }
     var nextDateManager: DateManager { get }
-    var changeDateManager: DateManager { get }
+    var monthlyDateManager: DateManager { get }
+    var weeklyDateManager: DateManager { get }
 
     func isToday(date: Date) -> Bool
     func isSelectedDate(date: Date) -> Bool
@@ -64,6 +65,14 @@ extension DateManager {
         var components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
         components.day = components.day! + 1
         return calendar.date(from: components)!
+    }
+
+    var monthlyDateManager: DateManager {
+        return MonthlyDateManager(selectedDate: selectedDate, scheduledDates: scheduledDates)
+    }
+
+    var weeklyDateManager: DateManager {
+        return WeeklyDateManager(selectedDate: selectedDate, scheduledDates: scheduledDates)
     }
 
     func isToday(date: Date) -> Bool {

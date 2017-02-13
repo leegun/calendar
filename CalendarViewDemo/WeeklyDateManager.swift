@@ -36,10 +36,6 @@ struct WeeklyDateManager: DateManager {
         return WeeklyDateManager(selectedDate: date, scheduledDates: scheduledDates)
     }
 
-    var changeDateManager: DateManager {
-        return MonthlyDateManager(selectedDate: selectedDate, scheduledDates: scheduledDates)
-    }
-
     init(selectedDate: Date = Date(), scheduledDates: [Date] = [Date]()) {
 
         let calendar = Calendar(identifier: .gregorian)

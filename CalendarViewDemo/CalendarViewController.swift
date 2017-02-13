@@ -13,15 +13,15 @@ class CalendarViewController: UIViewController {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var contentTitle: RoundLabel!
-    @IBOutlet weak var containerHeight: NSLayoutConstraint!
+    @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var calendarView: UIView!
 
     var calendarPageViewController: CalendarPageViewController!
     let contents: [Content] = Content.dummy
+    var isUpDirection: Bool = true
+    var beforeHeight: CGFloat!
 
     override func viewDidLoad() {
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CalendarViewController.tapContentView(_:)))
-        contentView.addGestureRecognizer(tapGesture)
 
         guard let calendarPageViewController = self.childViewControllers[0] as? CalendarPageViewController else {
             return
@@ -29,8 +29,8 @@ class CalendarViewController: UIViewController {
         self.calendarPageViewController = calendarPageViewController
         self.calendarPageViewController.scheduledDates = contents.map { return $0.calendarDate }
         self.calendarPageViewController.didChangeHeight = { [weak self] height in
-            self?.containerHeight.constant = height
-            self?.view.layoutIfNeeded()
+            self?.calendarHeightConstraint.constant = height
+            self?.calendarView.layoutIfNeeded()
         }
         self.calendarPageViewController.didChangeMonth = { [weak self] title in
             self?.monthLabel.text = title
@@ -38,8 +38,10 @@ class CalendarViewController: UIViewController {
         self.calendarPageViewController.didChangeDate = { [weak self] selectedDate in
             self?.updateContent(selectedDate: selectedDate)
         }
+
+        beforeHeight = self.calendarHeightConstraint.constant
     }
-    
+
     @IBAction func prevDay(_ sender: Any) {
         calendarPageViewController.prevCalendarDate()
     }
@@ -48,8 +50,21 @@ class CalendarViewController: UIViewController {
         calendarPageViewController.nextCalendarDate()
     }
 
-    func tapContentView(_ gestureRecognizer: UITapGestureRecognizer) {
-        calendarPageViewController.changeDateManager()
+    @IBAction func didPanGustureRecognizer(_ sender: UIPanGestureRecognizer) {
+
+        if sender.state == .cancelled || sender.state == .ended {
+            if isUpDirection {
+                calendarPageViewController.changeWeeklyDateManager()
+            } else {
+                calendarPageViewController.changeMonthlyDateManager()
+            }
+            return
+        }
+        let calendarHeight = calendarPageViewController.height + sender.translation(in: self.view).y
+        isUpDirection = calendarHeight < beforeHeight ? true : false
+        beforeHeight = calendarHeight
+        self.calendarHeightConstraint.constant = calendarHeight
+        self.calendarView.layoutIfNeeded()
     }
 
     func updateContent(selectedDate: Date) {

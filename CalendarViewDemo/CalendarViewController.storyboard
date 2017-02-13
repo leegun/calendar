@@ -97,6 +97,7 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="MVK-4p-zww" firstAttribute="top" secondItem="lGv-La-VaJ" secondAttribute="top" constant="20" id="3ZQ-6f-z8B"/>
                                     <constraint firstItem="MVK-4p-zww" firstAttribute="leading" secondItem="lGv-La-VaJ" secondAttribute="leading" constant="20" id="NI5-dE-i92"/>
@@ -106,6 +107,9 @@
                                     <constraint firstAttribute="trailing" secondItem="MVK-4p-zww" secondAttribute="trailing" constant="20" id="jc2-2E-5rV"/>
                                     <constraint firstAttribute="trailing" secondItem="wXT-Fv-sIf" secondAttribute="trailing" constant="20" id="zkW-p1-526"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gxR-Zn-c6i" appends="YES" id="9Jf-T5-ztd"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -123,13 +127,20 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="containerHeight" destination="93s-r2-KaX" id="inC-N7-Die"/>
+                        <outlet property="calendarHeightConstraint" destination="93s-r2-KaX" id="jvg-yn-65t"/>
+                        <outlet property="calendarView" destination="MWL-yq-fTm" id="LhC-Vm-SVO"/>
                         <outlet property="contentTitle" destination="MVK-4p-zww" id="Eof-AQ-6YQ"/>
                         <outlet property="contentView" destination="lGv-La-VaJ" id="lgv-jj-EFe"/>
                         <outlet property="monthLabel" destination="cP3-nk-rfJ" id="XVH-gf-Jif"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VnS-7W-udD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="gxR-Zn-c6i">
+                    <connections>
+                        <action selector="didPanGustureRecognizer:" destination="gg8-I0-FjJ" id="e6I-gS-0YN"/>
+                        <outlet property="delegate" destination="gg8-I0-FjJ" id="60z-uX-PKp"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-176.80000000000001" y="92.203898050974516"/>
         </scene>

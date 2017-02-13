@@ -19,6 +19,9 @@ class CalendarPageViewController: UIPageViewController {
     var currentVC: DateCollectionViewController {
         return self.viewControllers?[0] as! DateCollectionViewController
     }
+    var height: CGFloat {
+        return currentVC.height
+    }
     var dateCollectionViewController: DateCollectionViewController {
         let vc = DateCollectionViewController.instantiate()
         vc.didChangeMonth = { [weak self] title in
@@ -47,8 +50,12 @@ class CalendarPageViewController: UIPageViewController {
         setViewControllers([vc], direction: direction, animated: animated, completion: completion)
     }
 
-    func changeDateManager() {
-        setViewController(dateManager: currentVC.dateManager.changeDateManager)
+    func changeMonthlyDateManager() {
+        setViewController(dateManager: currentVC.dateManager.monthlyDateManager)
+    }
+
+    func changeWeeklyDateManager() {
+        setViewController(dateManager: currentVC.dateManager.weeklyDateManager)
     }
 
     func prevCalendarDate() {
