@@ -12,10 +12,11 @@ class DateCollectionViewController: UIViewController, StoryboardInstantiatable {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
+    let weekDayHeight = 17
     let cellHeight = 50
     var dateManager: DateManager!
     var height: CGFloat {
-        return CGFloat(dateManager.weekCount * cellHeight)
+        return CGFloat(dateManager.weekCount * cellHeight + weekDayHeight)
     }
     var didChangeMonth: ((String) -> Void)?
     var didChangeDate: ((Date) -> Void)?
