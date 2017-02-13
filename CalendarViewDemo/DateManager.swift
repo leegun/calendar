@@ -26,6 +26,7 @@ protocol DateManager {
     var nextDateManager: DateManager { get }
     var monthlyDateManager: DateManager { get }
     var weeklyDateManager: DateManager { get }
+    var refreshDateManager: DateManager { get }
 
     func isToday(date: Date) -> Bool
     func isSelectedDate(date: Date) -> Bool

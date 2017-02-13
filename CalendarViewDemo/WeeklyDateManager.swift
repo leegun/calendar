@@ -35,6 +35,10 @@ struct WeeklyDateManager: DateManager {
         let date = calendar.date(from: components)!
         return WeeklyDateManager(selectedDate: date, scheduledDates: scheduledDates)
     }
+    
+    var refreshDateManager: DateManager {
+        return WeeklyDateManager(selectedDate: selectedDate, scheduledDates: scheduledDates)
+    }
 
     init(selectedDate: Date = Date(), scheduledDates: [Date] = [Date]()) {
 

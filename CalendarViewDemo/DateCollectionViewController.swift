@@ -34,6 +34,7 @@ class DateCollectionViewController: UIViewController, StoryboardInstantiatable {
     func reload(selectedDate: Date? = nil) {
         guard let selectedDate = selectedDate else { return }
         dateManager.selectedDate = selectedDate
+        dateManager = dateManager.refreshDateManager
         didChangeMonth?(dateManager.title)
         didChangeDate?(dateManager.selectedDate)
         collectionView.reloadData()
@@ -51,7 +52,7 @@ extension DateCollectionViewController: UICollectionViewDelegate {
 extension DateCollectionViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+
         let width = collectionView.frame.size.width / CGFloat(dateManager.daysPerWeek)
         let height = CGFloat(cellHeight)
         return CGSize(width: width, height: height)

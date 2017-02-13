@@ -36,6 +36,10 @@ struct MonthlyDateManager: DateManager {
         return MonthlyDateManager(selectedDate: date, scheduledDates: scheduledDates)
     }
 
+    var refreshDateManager: DateManager {
+        return MonthlyDateManager(selectedDate: selectedDate, scheduledDates: scheduledDates)
+    }
+
     init(selectedDate: Date = Date(), scheduledDates: [Date] = [Date]()) {
 
         let calendar = Calendar(identifier: .gregorian)
