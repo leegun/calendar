@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class RounedLabel: UILabel {
+class RoundLabel: UILabel {
     
     @IBInspectable var borderColor: UIColor? {
         get {

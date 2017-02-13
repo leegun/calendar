@@ -1,5 +1,5 @@
 //
-//  RounedView.swift
+//  RoundView.swift
 //  CalendarViewDemo
 //
 //  Created by g.lee on 2017/02/06.
@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class RounedView: UIView {
+class RoundView: UIView {
 
     @IBInspectable var borderColor: UIColor? {
         get {

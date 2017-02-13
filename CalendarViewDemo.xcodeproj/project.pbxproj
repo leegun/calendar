@@ -12,8 +12,8 @@
 		8BF60E5E1E4801B000EA05EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF60E5C1E4801B000EA05EB /* LaunchScreen.storyboard */; };
 		8BF60E6A1E4807A400EA05EB /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E691E4807A400EA05EB /* DateCell.swift */; };
 		8BF60E6C1E480D1200EA05EB /* MonthlyDateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E6B1E480D1200EA05EB /* MonthlyDateManager.swift */; };
-		8BF60E6F1E48695400EA05EB /* RounedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E6E1E48695400EA05EB /* RounedLabel.swift */; };
-		8BF60E711E4896AC00EA05EB /* RounedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E701E4896AC00EA05EB /* RounedView.swift */; };
+		8BF60E6F1E48695400EA05EB /* RoundLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E6E1E48695400EA05EB /* RoundLabel.swift */; };
+		8BF60E711E4896AC00EA05EB /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E701E4896AC00EA05EB /* RoundView.swift */; };
 		8BF60E831E4AA43800EA05EB /* CalendarPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E821E4AA43800EA05EB /* CalendarPageViewController.swift */; };
 		8BF60E851E4AA5E700EA05EB /* DateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF60E841E4AA5E700EA05EB /* DateCollectionViewController.swift */; };
 		8BF60E871E4AA64800EA05EB /* DateCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF60E861E4AA64800EA05EB /* DateCollectionViewController.storyboard */; };
@@ -34,8 +34,8 @@
 		8BF60E5F1E4801B000EA05EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BF60E691E4807A400EA05EB /* DateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		8BF60E6B1E480D1200EA05EB /* MonthlyDateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyDateManager.swift; sourceTree = "<group>"; };
-		8BF60E6E1E48695400EA05EB /* RounedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RounedLabel.swift; sourceTree = "<group>"; };
-		8BF60E701E4896AC00EA05EB /* RounedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RounedView.swift; sourceTree = "<group>"; };
+		8BF60E6E1E48695400EA05EB /* RoundLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundLabel.swift; sourceTree = "<group>"; };
+		8BF60E701E4896AC00EA05EB /* RoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		8BF60E821E4AA43800EA05EB /* CalendarPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarPageViewController.swift; sourceTree = "<group>"; };
 		8BF60E841E4AA5E700EA05EB /* DateCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewController.swift; sourceTree = "<group>"; };
 		8BF60E861E4AA64800EA05EB /* DateCollectionViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DateCollectionViewController.storyboard; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				8BF60E761E4966A600EA05EB /* CalendarView */,
-				8BF60E771E4966BE00EA05EB /* Desainable */,
+				8BF60E771E4966BE00EA05EB /* Designable */,
 			);
 			name = UIs;
 			sourceTree = "<group>";
@@ -112,13 +112,13 @@
 			name = CalendarView;
 			sourceTree = "<group>";
 		};
-		8BF60E771E4966BE00EA05EB /* Desainable */ = {
+		8BF60E771E4966BE00EA05EB /* Designable */ = {
 			isa = PBXGroup;
 			children = (
-				8BF60E6E1E48695400EA05EB /* RounedLabel.swift */,
-				8BF60E701E4896AC00EA05EB /* RounedView.swift */,
+				8BF60E6E1E48695400EA05EB /* RoundLabel.swift */,
+				8BF60E701E4896AC00EA05EB /* RoundView.swift */,
 			);
-			name = Desainable;
+			name = Designable;
 			sourceTree = "<group>";
 		};
 		8BF60E8C1E4ABB4500EA05EB /* Utilities */ = {
@@ -225,7 +225,7 @@
 				8BF60E891E4AB17A00EA05EB /* CalendarViewController.swift in Sources */,
 				8BF60E6C1E480D1200EA05EB /* MonthlyDateManager.swift in Sources */,
 				8BF60E6A1E4807A400EA05EB /* DateCell.swift in Sources */,
-				8BF60E6F1E48695400EA05EB /* RounedLabel.swift in Sources */,
+				8BF60E6F1E48695400EA05EB /* RoundLabel.swift in Sources */,
 				8BF60E901E4ABB4500EA05EB /* XibInstantiatable.swift in Sources */,
 				8BF60E831E4AA43800EA05EB /* CalendarPageViewController.swift in Sources */,
 				8BF60E541E4801B000EA05EB /* AppDelegate.swift in Sources */,
@@ -234,7 +234,7 @@
 				8BF60E951E4C407200EA05EB /* WeeklyDateManager.swift in Sources */,
 				8BF60E8F1E4ABB4500EA05EB /* StoryboardInstantiatable.swift in Sources */,
 				8BF60E851E4AA5E700EA05EB /* DateCollectionViewController.swift in Sources */,
-				8BF60E711E4896AC00EA05EB /* RounedView.swift in Sources */,
+				8BF60E711E4896AC00EA05EB /* RoundView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

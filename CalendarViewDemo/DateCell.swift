@@ -10,8 +10,8 @@ import UIKit
 
 class DateCell: UICollectionViewCell {
 
-    @IBOutlet weak var dayLabel: RounedLabel!
-    @IBOutlet weak var activeView: RounedView!
+    @IBOutlet weak var dayLabel: RoundLabel!
+    @IBOutlet weak var activeView: RoundView!
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!

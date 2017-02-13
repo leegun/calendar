@@ -12,7 +12,7 @@ class CalendarViewController: UIViewController {
 
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var contentTitle: RounedLabel!
+    @IBOutlet weak var contentTitle: RoundLabel!
     @IBOutlet weak var containerHeight: NSLayoutConstraint!
 
     var calendarPageViewController: CalendarPageViewController!
