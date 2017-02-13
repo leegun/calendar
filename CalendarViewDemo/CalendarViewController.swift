@@ -27,7 +27,7 @@ class CalendarViewController: UIViewController {
             return
         }
         self.calendarPageViewController = calendarPageViewController
-        self.calendarPageViewController.activeDates = contents.map { return $0.calendarDate }
+        self.calendarPageViewController.scheduledDates = contents.map { return $0.calendarDate }
         self.calendarPageViewController.didChangeHeight = { [weak self] height in
             self?.containerHeight.constant = height
             self?.view.layoutIfNeeded()

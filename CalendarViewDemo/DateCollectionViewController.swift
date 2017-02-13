@@ -68,9 +68,15 @@ extension DateCollectionViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCell", for: indexPath) as! DateCell
-        cell.configure(dateManager: dateManager, indexPath: indexPath)
+
+        let indexPathDate = dateManager.dates[indexPath.row]
+        let isToday = dateManager.isToday(date: indexPathDate)
+        let isSelected = dateManager.isSelectedDate(date: indexPathDate)
+        let isCurrentMonth = dateManager.isCurrentMonth(date: indexPathDate)
+        let isScheduled = dateManager.isScheduledDate(date: indexPathDate)
+        cell.configure(date: indexPathDate, isToday: isToday, isSelected: isSelected, isCurrentMonth: isCurrentMonth, isScheduled: isScheduled)
 
         return cell
     }

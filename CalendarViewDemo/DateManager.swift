@@ -15,7 +15,7 @@ protocol DateManager {
     var dayCount: Int { get }
     var firstDate: Date { get }
     var dates: [Date] { get }
-    var activeDates: [Date] { get }
+    var scheduledDates: [Date] { get }
     var selectedDate: Date { get set }
     var todayComponents: DateComponents { get }
     var today: Date { get }
@@ -29,7 +29,7 @@ protocol DateManager {
     func isToday(date: Date) -> Bool
     func isSelectedDate(date: Date) -> Bool
     func isCurrentMonth(date: Date) -> Bool
-    func conversionDateFormat(date: Date) -> String
+    func isScheduledDate(date: Date) -> Bool
 }
 
 extension DateManager {
@@ -76,9 +76,12 @@ extension DateManager {
         return calendar.isDate(selectedDate, inSameDayAs: date)
     }
 
-    func conversionDateFormat(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
-        return formatter.string(from: date)
+    func isScheduledDate(date: Date) -> Bool {
+        for scheduledDate in scheduledDates {
+            if date == scheduledDate {
+                return true
+            }
+        }
+        return false
     }
 }

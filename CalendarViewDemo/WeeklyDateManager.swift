@@ -15,7 +15,7 @@ struct WeeklyDateManager: DateManager {
     let dayCount: Int = 7
     let firstDate: Date
     var dates: [Date]
-    var activeDates: [Date]
+    var scheduledDates: [Date]
     var selectedDate: Date
 
     var prevDateManager: DateManager {
@@ -24,7 +24,7 @@ struct WeeklyDateManager: DateManager {
         let dateCount =  calendar.ordinality(of: .day, in: .weekOfMonth, for: selectedDate)!
         components.day = components.day! - dateCount
         let date = calendar.date(from: components)!
-        return WeeklyDateManager(selectedDate: date, activeDates: activeDates)
+        return WeeklyDateManager(selectedDate: date, scheduledDates: scheduledDates)
     }
 
     var nextDateManager: DateManager {
@@ -33,26 +33,23 @@ struct WeeklyDateManager: DateManager {
         let dateCount =  (daysPerWeek + 1) - calendar.ordinality(of: .day, in: .weekOfMonth, for: selectedDate)!
         components.day = components.day! + dateCount
         let date = calendar.date(from: components)!
-        return WeeklyDateManager(selectedDate: date, activeDates: activeDates)
+        return WeeklyDateManager(selectedDate: date, scheduledDates: scheduledDates)
     }
 
     var changeDateManager: DateManager {
-        return MonthlyDateManager(selectedDate: selectedDate, activeDates: activeDates)
+        return MonthlyDateManager(selectedDate: selectedDate, scheduledDates: scheduledDates)
     }
 
-    init(selectedDate: Date = Date(), activeDates: [Date] = [Date]()) {
+    init(selectedDate: Date = Date(), scheduledDates: [Date] = [Date]()) {
 
         let calendar = Calendar(identifier: .gregorian)
-        
-        // selectedDate
+
         self.selectedDate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: selectedDate))!
 
-        // firstDate
         var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
         components.day = 1
         firstDate = calendar.date(from: components)!
 
-        // dates
         dates = [Date]()
         let ordinalityOfFirstDay =  calendar.ordinality(of: .day, in: .weekOfMonth, for: selectedDate)!
         for day in 1...dayCount {
@@ -64,8 +61,7 @@ struct WeeklyDateManager: DateManager {
             }
         }
 
-        // activeDates
-        self.activeDates = activeDates
+        self.scheduledDates = scheduledDates
     }
 
     func isCurrentMonth(date: Date) -> Bool {

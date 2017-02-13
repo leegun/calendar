@@ -15,7 +15,7 @@ struct MonthlyDateManager: DateManager {
     let dayCount: Int
     let firstDate: Date
     var dates: [Date]
-    var activeDates: [Date]
+    var scheduledDates: [Date]
     var selectedDate: Date
 
     var prevDateManager: DateManager {
@@ -24,7 +24,7 @@ struct MonthlyDateManager: DateManager {
         components.month = components.month! - 1
         components.day = components.month == todayComponents.month && components.year == todayComponents.year ? todayComponents.day : 1
         let date = calendar.date(from: components)!
-        return MonthlyDateManager(selectedDate: date, activeDates: activeDates)
+        return MonthlyDateManager(selectedDate: date, scheduledDates: scheduledDates)
     }
 
     var nextDateManager: DateManager {
@@ -33,33 +33,28 @@ struct MonthlyDateManager: DateManager {
         components.month = components.month! + 1
         components.day = components.month == todayComponents.month && components.year == todayComponents.year ? todayComponents.day : 1
         let date = calendar.date(from: components)!
-        return MonthlyDateManager(selectedDate: date, activeDates: activeDates)
+        return MonthlyDateManager(selectedDate: date, scheduledDates: scheduledDates)
     }
 
     var changeDateManager: DateManager {
-        return WeeklyDateManager(selectedDate: selectedDate, activeDates: activeDates)
+        return WeeklyDateManager(selectedDate: selectedDate, scheduledDates: scheduledDates)
     }
 
-    init(selectedDate: Date = Date(), activeDates: [Date] = [Date]()) {
+    init(selectedDate: Date = Date(), scheduledDates: [Date] = [Date]()) {
 
         let calendar = Calendar(identifier: .gregorian)
 
-        // selectedDate
         self.selectedDate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: selectedDate))!
 
-        // firstDate
         var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
         components.day = 1
         firstDate = calendar.date(from: components)!
 
-        // weekCount
         let rangeOfWeeks = calendar.range(of: .weekOfMonth, in: .month, for: firstDate)!
         self.weekCount = rangeOfWeeks.count
 
-        // dayCount
         self.dayCount = weekCount * daysPerWeek
 
-        // dates
         dates = [Date]()
         let ordinalityOfFirstDay =  calendar.ordinality(of: .day, in: .weekOfMonth, for: firstDate)!
         for day in 1...dayCount {
@@ -70,8 +65,7 @@ struct MonthlyDateManager: DateManager {
             }
         }
 
-        // activeDates
-        self.activeDates = activeDates
+        self.scheduledDates = scheduledDates
     }
 
     func isCurrentMonth(date: Date) -> Bool {

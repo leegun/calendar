@@ -21,14 +21,14 @@ class DateCell: UICollectionViewCell {
         super.init(frame: frame)
     }
 
-    func configure(dateManager: DateManager, indexPath: IndexPath) {
+    func configure(date: Date, isToday: Bool, isSelected: Bool, isCurrentMonth: Bool, isScheduled: Bool) {
 
-        let indexPathDate = dateManager.dates[indexPath.row]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        dayLabel.text = formatter.string(from: date)
 
-        dayLabel.text = dateManager.conversionDateFormat(date: indexPathDate)
-
-        if dateManager.isToday(date: indexPathDate) {
-            if dateManager.isSelectedDate(date: dateManager.today) {
+        if isToday {
+            if isSelected {
                 dayLabel.backgroundColor = .red
                 dayLabel.textColor = .white
             } else {
@@ -36,7 +36,7 @@ class DateCell: UICollectionViewCell {
                 dayLabel.textColor = .red
             }
         } else {
-            if dateManager.isSelectedDate(date: indexPathDate) {
+            if isSelected {
                 dayLabel.backgroundColor = .darkGray
                 dayLabel.textColor = .white
             } else {
@@ -45,17 +45,10 @@ class DateCell: UICollectionViewCell {
             }
         }
 
-        if !dateManager.isCurrentMonth(date: indexPathDate) && !dateManager.isSelectedDate(date: indexPathDate) {
+        if !isCurrentMonth && !isSelected {
             dayLabel.textColor = .lightGray
         }
 
-        for activeDate in dateManager.activeDates {
-            if activeDate == indexPathDate {
-                activeView.alpha = 1
-                break
-            } else {
-                activeView.alpha = 0
-            }
-        }
+        activeView.alpha = isScheduled ? 1 : 0
     }
 }

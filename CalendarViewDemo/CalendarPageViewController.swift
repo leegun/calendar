@@ -10,7 +10,7 @@ import UIKit
 
 class CalendarPageViewController: UIPageViewController {
 
-    var activeDates = [Date]()
+    var scheduledDates = [Date]()
 
     var didChangeHeight: ((CGFloat) -> Void)?
     var didChangeMonth: ((String) -> Void)?
@@ -37,7 +37,7 @@ class CalendarPageViewController: UIPageViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        setViewController(dateManager: MonthlyDateManager(activeDates: activeDates))
+        setViewController(dateManager: MonthlyDateManager(scheduledDates: scheduledDates))
     }
 
     func setViewController(dateManager: DateManager, direction: UIPageViewControllerNavigationDirection = .forward, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
