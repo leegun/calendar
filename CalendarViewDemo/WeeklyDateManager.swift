@@ -1,5 +1,5 @@
 //
-//  WeeklyDateCollection.swift
+//  WeeklyDateManager.swift
 //  CalendarViewDemo
 //
 //  Created by g.lee on 2017/02/09.
@@ -8,9 +8,8 @@
 
 import Foundation
 
-struct WeeklyDateCollection: DateCollection {
+struct WeeklyDateManager: DateManager {
     
-    let calendar = Calendar(identifier: .gregorian)
     let daysPerWeek: Int = 7
     let weekCount: Int = 1
     let dayCount: Int = 7
@@ -19,27 +18,31 @@ struct WeeklyDateCollection: DateCollection {
     var activeDates: [Date]
     var selectedDate: Date
 
-    var prevDateCollection: DateCollection {
+    var prevDateManager: DateManager {
+        let calendar = Calendar(identifier: .gregorian)
         var components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
         let dateCount =  calendar.ordinality(of: .day, in: .weekOfMonth, for: selectedDate)!
         components.day = components.day! - dateCount
         let date = calendar.date(from: components)!
-        return WeeklyDateCollection(selectedDate: date, activeDates: activeDates)
+        return WeeklyDateManager(selectedDate: date, activeDates: activeDates)
     }
 
-    var nextDateCollection: DateCollection {
+    var nextDateManager: DateManager {
+        let calendar = Calendar(identifier: .gregorian)
         var components = calendar.dateComponents([.year, .month, .day], from: self.selectedDate)
         let dateCount =  (daysPerWeek + 1) - calendar.ordinality(of: .day, in: .weekOfMonth, for: selectedDate)!
         components.day = components.day! + dateCount
         let date = calendar.date(from: components)!
-        return WeeklyDateCollection(selectedDate: date, activeDates: activeDates)
+        return WeeklyDateManager(selectedDate: date, activeDates: activeDates)
     }
 
-    var changeMode: DateCollection {
-        return MonthlyDateCollection(selectedDate: selectedDate, activeDates: activeDates)
+    var changeDateManager: DateManager {
+        return MonthlyDateManager(selectedDate: selectedDate, activeDates: activeDates)
     }
 
     init(selectedDate: Date = Date(), activeDates: [Date] = [Date]()) {
+
+        let calendar = Calendar(identifier: .gregorian)
         
         // selectedDate
         self.selectedDate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: selectedDate))!
@@ -67,6 +70,7 @@ struct WeeklyDateCollection: DateCollection {
 
     func isCurrentMonth(date: Date) -> Bool {
 
+        let calendar = Calendar(identifier: .gregorian)
         let components = calendar.dateComponents([.year, .month], from: date)
         let currentComponents = calendar.dateComponents([.year, .month], from: firstDate)
         return (components.month == currentComponents.month) && (components.year == currentComponents.year)

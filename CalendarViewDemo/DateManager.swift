@@ -1,5 +1,5 @@
 //
-//  DateCollection.swift
+//  DateManager.swift
 //  CalendarViewDemo
 //
 //  Created by g.lee on 2017/02/09.
@@ -8,9 +8,8 @@
 
 import Foundation
 
-protocol DateCollection {
+protocol DateManager {
 
-    var calendar: Calendar { get }
     var daysPerWeek: Int { get }
     var weekCount: Int { get }
     var dayCount: Int { get }
@@ -23,9 +22,9 @@ protocol DateCollection {
     var title: String { get }
     var prevDate: Date { get }
     var nextDate: Date { get }
-    var prevDateCollection: DateCollection { get }
-    var nextDateCollection: DateCollection { get }
-    var changeMode: DateCollection { get }
+    var prevDateManager: DateManager { get }
+    var nextDateManager: DateManager { get }
+    var changeDateManager: DateManager { get }
 
     func isToday(date: Date) -> Bool
     func isSelectedDate(date: Date) -> Bool
@@ -33,14 +32,16 @@ protocol DateCollection {
     func conversionDateFormat(date: Date) -> String
 }
 
-extension DateCollection {
+extension DateManager {
 
     var todayComponents: DateComponents {
+        let calendar = Calendar(identifier: .gregorian)
         let components = calendar.dateComponents([.year, .month, .day], from: Date())
         return components
     }
 
     var today: Date {
+        let calendar = Calendar(identifier: .gregorian)
         let today = calendar.date(from: todayComponents)
         return today!
     }
@@ -52,22 +53,26 @@ extension DateCollection {
     }
 
     var prevDate: Date {
+        let calendar = Calendar(identifier: .gregorian)
         var components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
         components.day = components.day! - 2 // １日戻るのになぜか２日分引く必要があった
         return calendar.date(from: components)!
     }
 
     var nextDate: Date {
+        let calendar = Calendar(identifier: .gregorian)
         var components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
         components.day = components.day! + 1
         return calendar.date(from: components)!
     }
 
     func isToday(date: Date) -> Bool {
+        let calendar = Calendar(identifier: .gregorian)
         return calendar.isDateInToday(date)
     }
 
     func isSelectedDate(date: Date) -> Bool {
+        let calendar = Calendar(identifier: .gregorian)
         return calendar.isDate(selectedDate, inSameDayAs: date)
     }
 

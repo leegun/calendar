@@ -49,7 +49,7 @@ class CalendarViewController: UIViewController {
     }
 
     func tapContentView(_ gestureRecognizer: UITapGestureRecognizer) {
-        calendarPageViewController.changeDateCollection()
+        calendarPageViewController.changeDateManager()
     }
 
     func updateContent(selectedDate: Date) {

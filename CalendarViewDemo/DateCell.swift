@@ -21,14 +21,14 @@ class DateCell: UICollectionViewCell {
         super.init(frame: frame)
     }
 
-    func configure(dateCollection: DateCollection, indexPath: IndexPath) {
+    func configure(dateManager: DateManager, indexPath: IndexPath) {
 
-        let indexPathDate = dateCollection.dates[indexPath.row]
+        let indexPathDate = dateManager.dates[indexPath.row]
 
-        dayLabel.text = dateCollection.conversionDateFormat(date: indexPathDate)
+        dayLabel.text = dateManager.conversionDateFormat(date: indexPathDate)
 
-        if dateCollection.isToday(date: indexPathDate) {
-            if dateCollection.isSelectedDate(date: dateCollection.today) {
+        if dateManager.isToday(date: indexPathDate) {
+            if dateManager.isSelectedDate(date: dateManager.today) {
                 dayLabel.backgroundColor = .red
                 dayLabel.textColor = .white
             } else {
@@ -36,7 +36,7 @@ class DateCell: UICollectionViewCell {
                 dayLabel.textColor = .red
             }
         } else {
-            if dateCollection.isSelectedDate(date: indexPathDate) {
+            if dateManager.isSelectedDate(date: indexPathDate) {
                 dayLabel.backgroundColor = .darkGray
                 dayLabel.textColor = .white
             } else {
@@ -45,11 +45,11 @@ class DateCell: UICollectionViewCell {
             }
         }
 
-        if !dateCollection.isCurrentMonth(date: indexPathDate) && !dateCollection.isSelectedDate(date: indexPathDate) {
+        if !dateManager.isCurrentMonth(date: indexPathDate) && !dateManager.isSelectedDate(date: indexPathDate) {
             dayLabel.textColor = .lightGray
         }
 
-        for activeDate in dateCollection.activeDates {
+        for activeDate in dateManager.activeDates {
             if activeDate == indexPathDate {
                 activeView.alpha = 1
                 break
