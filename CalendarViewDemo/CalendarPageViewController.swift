@@ -65,6 +65,7 @@ class CalendarPageViewController: UIPageViewController {
         } else {
             currentVC.dateManager = currentVC.dateManager.prevDateManager
             currentVC.dateManager.selectedDate = prevDate
+            currentVC.dateManager = currentVC.dateManager.refreshDateManager
             setViewController(dateManager: currentVC.dateManager) { [weak self] completed in
                 if completed { self?.executeDidChangies() }
             }
@@ -78,6 +79,7 @@ class CalendarPageViewController: UIPageViewController {
         } else {
             currentVC.dateManager = currentVC.dateManager.nextDateManager
             currentVC.dateManager.selectedDate = nextDate
+            currentVC.dateManager = currentVC.dateManager.refreshDateManager
             setViewController(dateManager: currentVC.dateManager) { [weak self] completed in
                 if completed { self?.executeDidChangies() }
             }
