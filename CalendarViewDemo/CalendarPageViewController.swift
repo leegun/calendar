@@ -50,6 +50,12 @@ class CalendarPageViewController: UIPageViewController {
         setViewControllers([vc], direction: direction, animated: animated, completion: completion)
     }
 
+    func changeTodayMonthlyDateManager() {
+        setViewController(dateManager: currentVC.dateManager.todayMonthlyDateManager) { [weak self] completed in
+            if completed { self?.executeDidChangies() }
+        }
+    }
+
     func changeMonthlyDateManager() {
         setViewController(dateManager: currentVC.dateManager.monthlyDateManager)
     }

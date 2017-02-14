@@ -22,6 +22,7 @@ protocol DateManager {
     var title: String { get }
     var prevDate: Date { get }
     var nextDate: Date { get }
+    var todayMonthlyDateManager: DateManager { get }
     var prevDateManager: DateManager { get }
     var nextDateManager: DateManager { get }
     var monthlyDateManager: DateManager { get }
@@ -66,6 +67,10 @@ extension DateManager {
         var components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
         components.day = components.day! + 1
         return calendar.date(from: components)!
+    }
+
+    var todayMonthlyDateManager: DateManager {
+        return MonthlyDateManager(selectedDate: today, scheduledDates: scheduledDates)
     }
 
     var monthlyDateManager: DateManager {

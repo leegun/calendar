@@ -91,8 +91,17 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="nextDay:" destination="gg8-I0-FjJ" eventType="touchUpInside" id="iF6-e5-5H6"/>
                                             <action selector="prevDay:" destination="gg8-I0-FjJ" eventType="touchUpInside" id="Ejd-Uf-gKi"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IL-FP-Qxy">
+                                        <rect key="frame" x="157" y="236" width="60" height="30"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="  HOME  ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="today:" destination="gg8-I0-FjJ" eventType="touchUpInside" id="6lB-hS-w0j"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -104,6 +113,8 @@
                                     <constraint firstAttribute="bottom" secondItem="2sq-Wz-IFj" secondAttribute="bottom" constant="20" id="SFA-O1-tgE"/>
                                     <constraint firstAttribute="bottom" secondItem="wXT-Fv-sIf" secondAttribute="bottom" constant="20" id="cNi-Xt-sfk"/>
                                     <constraint firstItem="2sq-Wz-IFj" firstAttribute="leading" secondItem="lGv-La-VaJ" secondAttribute="leading" constant="20" id="gnZ-Jg-6Dd"/>
+                                    <constraint firstItem="0IL-FP-Qxy" firstAttribute="centerX" secondItem="lGv-La-VaJ" secondAttribute="centerX" id="hgO-UR-XCP"/>
+                                    <constraint firstAttribute="bottom" secondItem="0IL-FP-Qxy" secondAttribute="bottom" constant="20" id="ie9-m7-IE4"/>
                                     <constraint firstAttribute="trailing" secondItem="MVK-4p-zww" secondAttribute="trailing" constant="20" id="jc2-2E-5rV"/>
                                     <constraint firstAttribute="trailing" secondItem="wXT-Fv-sIf" secondAttribute="trailing" constant="20" id="zkW-p1-526"/>
                                 </constraints>

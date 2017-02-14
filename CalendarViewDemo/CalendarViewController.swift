@@ -50,6 +50,10 @@ class CalendarViewController: UIViewController {
         calendarPageViewController.nextCalendarDate()
     }
 
+    @IBAction func today(_ sender: Any) {
+        calendarPageViewController.changeTodayMonthlyDateManager()
+    }
+
     @IBAction func didPanGustureRecognizer(_ sender: UIPanGestureRecognizer) {
 
         if sender.state == .cancelled || sender.state == .ended {
