@@ -39,6 +39,12 @@ class CalendarViewController: UIViewController {
             self?.updateContent(selectedDate: selectedDate)
         }
 
+        calendarView.layer.shadowColor = UIColor.black.cgColor
+        calendarView.layer.shadowOffset = CGSize(width: 0, height: 10)
+        calendarView.layer.shadowRadius = 5
+        calendarView.layer.shadowOpacity = 1
+        self.view.bringSubview(toFront: calendarView)
+
         beforeHeight = self.calendarHeightConstraint.constant
     }
 
