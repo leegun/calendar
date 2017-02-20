@@ -21,13 +21,13 @@ class DateCell: UICollectionViewCell {
         super.init(frame: frame)
     }
 
-    func configure(date: Date, isToday: Bool, isSelected: Bool, isCurrentMonth: Bool, isScheduled: Bool) {
+    func configure(calendarDate: CalendarDate, isSelected: Bool, isCurrentMonth: Bool) {
 
         let formatter = DateFormatter()
         formatter.dateFormat = "d"
-        dayLabel.text = formatter.string(from: date)
+        dayLabel.text = formatter.string(from: calendarDate.date)
 
-        if isToday {
+        if calendarDate.date.isToday {
             if isSelected {
                 dayLabel.backgroundColor = .red
                 dayLabel.textColor = .white
@@ -49,6 +49,6 @@ class DateCell: UICollectionViewCell {
             dayLabel.textColor = .lightGray
         }
 
-        activeView.alpha = isScheduled ? 1 : 0
+        activeView.alpha = calendarDate.isScheduled ? 1 : 0
     }
 }

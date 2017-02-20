@@ -32,7 +32,7 @@ class CalendarViewController: UIViewController {
             self?.calendarHeightConstraint.constant = height
             self?.calendarView.layoutIfNeeded()
         }
-        self.calendarPageViewController.didChangeMonth = { [weak self] title in
+        self.calendarPageViewController.didChangeCalendarTitle = { [weak self] title in
             self?.monthLabel.text = title
         }
         self.calendarPageViewController.didChangeDate = { [weak self] selectedDate in
@@ -51,20 +51,20 @@ class CalendarViewController: UIViewController {
     }
 
     @IBAction func today(_ sender: Any) {
-        calendarPageViewController.changeTodayMonthlyDateManager()
+        calendarPageViewController.changeTodayMonthly()
     }
 
     @IBAction func didPanGustureRecognizer(_ sender: UIPanGestureRecognizer) {
 
         if sender.state == .cancelled || sender.state == .ended {
             if isUpDirection {
-                calendarPageViewController.changeWeeklyDateManager()
+                calendarPageViewController.changeWeekly()
             } else {
-                calendarPageViewController.changeMonthlyDateManager()
+                calendarPageViewController.changeMonthly()
             }
             return
         }
-        let calendarHeight = calendarPageViewController.height + sender.translation(in: self.view).y
+        let calendarHeight = calendarPageViewController.calendarHeight + sender.translation(in: self.view).y
         isUpDirection = calendarHeight < beforeHeight ? true : false
         beforeHeight = calendarHeight
         self.calendarHeightConstraint.constant = calendarHeight

@@ -13,22 +13,33 @@ class CalendarPageViewController: UIPageViewController {
     var scheduledDates = [Date]()
 
     var didChangeHeight: ((CGFloat) -> Void)?
-    var didChangeMonth: ((String) -> Void)?
+    var didChangeCalendarTitle: ((String) -> Void)?
     var didChangeDate: ((Date) -> Void)?
 
     var currentVC: DateCollectionViewController {
         return self.viewControllers?[0] as! DateCollectionViewController
     }
-    var height: CGFloat {
+
+    var calendarTitle: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/yyyy"
+        return formatter.string(from: currentVC.selectedDate)
+    }
+
+    var calendarHeight: CGFloat {
         return currentVC.height
     }
-    var dateCollectionViewController: DateCollectionViewController {
+
+    func createDateCollectionVC(selectedDate: Date, calendarMode: CalendarMode, scheduledDates: [Date]) -> DateCollectionViewController {
         let vc = DateCollectionViewController.instantiate()
-        vc.didChangeMonth = { [weak self] title in
-            self?.didChangeMonth?(title)
-        }
+        vc.scheduledDates = scheduledDates
+        vc.calendarMode = calendarMode
+        vc.selectedDate = selectedDate
+        vc.calendarDates = CalendarDate.createCalendarDates(selectedDate: selectedDate, scheduledDates: scheduledDates, calendarMode: calendarMode)
         vc.didChangeDate = { [weak self] date in
-            self?.didChangeDate?(date)
+            guard let _self = self else { return }
+            _self.didChangeCalendarTitle?(_self.calendarTitle)
+            _self.didChangeDate?(date)
         }
         return vc
     }
@@ -40,66 +51,51 @@ class CalendarPageViewController: UIPageViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        setViewController(dateManager: MonthlyDateManager(scheduledDates: scheduledDates))
+        changeTodayMonthly()
     }
 
-    func setViewController(dateManager: DateManager, direction: UIPageViewControllerNavigationDirection = .forward, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
-        let vc = dateCollectionViewController
-        vc.dateManager = dateManager
-        didChangeHeight?(vc.height)
-        setViewControllers([vc], direction: direction, animated: animated, completion: completion)
-    }
-
-    func changeTodayMonthlyDateManager() {
-        setViewController(dateManager: currentVC.dateManager.todayMonthlyDateManager) { [weak self] completed in
+    func setViewController(_ vc: DateCollectionViewController) {
+        setViewControllers([vc], direction: .forward, animated: false) { [weak self] completed in
             if completed { self?.executeDidChangies() }
         }
     }
 
-    func changeMonthlyDateManager() {
-        setViewController(dateManager: currentVC.dateManager.monthlyDateManager)
+    func changeTodayMonthly() {
+        setViewController(createDateCollectionVC(selectedDate: Date().today, calendarMode: .monthly, scheduledDates: scheduledDates))
     }
 
-    func changeWeeklyDateManager() {
-        setViewController(dateManager: currentVC.dateManager.weeklyDateManager)
+    func changeMonthly() {
+        setViewController(createDateCollectionVC(selectedDate: currentVC.selectedDate, calendarMode: .monthly, scheduledDates: scheduledDates))
+    }
+
+    func changeWeekly() {
+        setViewController(createDateCollectionVC(selectedDate: currentVC.selectedDate, calendarMode: .weekly, scheduledDates: scheduledDates))
     }
 
     func prevCalendarDate() {
-        let prevDate = currentVC.dateManager.prevDate
-        if currentVC.dateManager.isCurrentMonth(date: prevDate) {
-            changeCalendarDate(selectedDate: prevDate)
+        let prevDate = currentVC.selectedDate.prevDate
+        if prevDate.isSameMonth(date: currentVC.selectedDate) {
+            currentVC.selectedDate = prevDate
+            currentVC.reload()
         } else {
-            currentVC.dateManager = currentVC.dateManager.prevDateManager
-            currentVC.dateManager.selectedDate = prevDate
-            currentVC.dateManager = currentVC.dateManager.refreshDateManager
-            setViewController(dateManager: currentVC.dateManager) { [weak self] completed in
-                if completed { self?.executeDidChangies() }
-            }
+            setViewController(createDateCollectionVC(selectedDate: prevDate, calendarMode: currentVC.calendarMode, scheduledDates: scheduledDates))
         }
     }
 
     func nextCalendarDate() {
-        let nextDate = currentVC.dateManager.nextDate
-        if currentVC.dateManager.isCurrentMonth(date: nextDate) {
-            changeCalendarDate(selectedDate: nextDate)
+        let nextDate = currentVC.selectedDate.nextDate
+        if nextDate.isSameMonth(date: currentVC.selectedDate) {
+            currentVC.selectedDate = nextDate
+            currentVC.reload()
         } else {
-            currentVC.dateManager = currentVC.dateManager.nextDateManager
-            currentVC.dateManager.selectedDate = nextDate
-            currentVC.dateManager = currentVC.dateManager.refreshDateManager
-            setViewController(dateManager: currentVC.dateManager) { [weak self] completed in
-                if completed { self?.executeDidChangies() }
-            }
+            setViewController(createDateCollectionVC(selectedDate: nextDate, calendarMode: currentVC.calendarMode, scheduledDates: scheduledDates))
         }
     }
 
-    func changeCalendarDate(selectedDate: Date) {
-        currentVC.reload(selectedDate: selectedDate)
-    }
-
     func executeDidChangies() {
-        didChangeMonth?(currentVC.dateManager.title)
-        didChangeHeight?(currentVC.height)
-        didChangeDate?(currentVC.dateManager.selectedDate)
+        didChangeCalendarTitle?(calendarTitle)
+        didChangeHeight?(calendarHeight)
+        didChangeDate?(currentVC.selectedDate)
     }
 }
 
@@ -119,15 +115,11 @@ extension CalendarPageViewController: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
-        let vc = dateCollectionViewController
-        vc.dateManager = currentVC.dateManager?.prevDateManager
-        return vc
+        return createDateCollectionVC(selectedDate:currentVC.prevDate, calendarMode: currentVC.calendarMode, scheduledDates: scheduledDates)
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 
-        let vc = dateCollectionViewController
-        vc.dateManager = currentVC.dateManager?.nextDateManager
-        return vc
+        return createDateCollectionVC(selectedDate:currentVC.nextDate, calendarMode: currentVC.calendarMode, scheduledDates: scheduledDates)
     }
 }
